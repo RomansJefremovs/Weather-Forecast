@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import LatestData from "./Components/LatestData";
 
 function App() {
+    const testObject = {
+        time: "some date",
+        temperature: {value:13,unit:"C"},
+        precipitation:{value:0,unit:"mm",type:"rain"},
+        wind:{value:2 ,unit:"m/s", direction:"North"},
+        cloud:{value:100, unit:"%"}
+    }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LatestData
+          time={testObject.time}
+          temperature={testObject.temperature}
+          precipitation={testObject.precipitation}
+          wind={testObject.wind}
+          cloud={testObject.cloud}
+      />
     </div>
   );
 }

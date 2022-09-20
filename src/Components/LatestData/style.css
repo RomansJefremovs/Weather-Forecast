@@ -1,0 +1,31 @@
+.latest-data{
+    background-color: #f0f0f0;
+    width: 50%;
+    /*border-radius: 1rem;*/
+    padding: 1rem;
+}
+
+.data-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.inline{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*min-width: 4rem;*/
+}
+
+.inner-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.header-data{
+    text-align: center;
+}
+.time{
+    font-size: 0.8rem;
+    text-align: right;
+}
