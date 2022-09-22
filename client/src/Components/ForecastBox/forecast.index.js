@@ -4,7 +4,7 @@ import "./forecast.style.css"
 const ForecastBox = ({time,temperature,precipitation,wind,cloud})=>{
     return(
         <div className={"forecast-container"}>
-
+            <p>{time}</p>
             <div className={"inner-f-container"}>
                 <p>Temperature</p>
                 <p>Precipitation of type {precipitation.type}</p>
