@@ -4,28 +4,7 @@
     /*border-radius: 1rem;*/
     padding: 1rem;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-
-}
-.inner-inline{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    /*min-width: 4rem;*/
-
-}
-
-.inner-f-container{
-    display: flex;
     flex-direction: column;
-    line-height: 4px;
-}
+    justify-content: space-around;
 
-.header-data{
-    text-align: center;
-}
-.time{
-    font-size: 0.8rem;
-    text-align: right;
 }

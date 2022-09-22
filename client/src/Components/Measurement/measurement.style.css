@@ -1,0 +1,11 @@
+.measurement{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.measurement-inline{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

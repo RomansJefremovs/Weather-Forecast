@@ -8,6 +8,7 @@ const LatestData = ({time,temperature,precipitation,wind,cloud})=>{
         <div className={"latest-data"}>
             <h1 className={"header-data"}>Latest data</h1>
             <p className={"time"}>Updated at {time}</p>
+
             <div className={"data-container"}>
                 <div className={"inner-container"}>
                     <p>Temperature</p>
