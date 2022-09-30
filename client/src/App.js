@@ -10,30 +10,41 @@ function App() {
 
     const [forecast,setForecast] = useState([])
     const [status, setStatus] = useState(false)
-    const [city, setCity] = useState("Horsens")
-    const [testObj, setTestObj] = useState({
-        from:0,
-        to:0,
-        type:"",
-        unit:"",
-        time:""
-    })
 
+
+    const testFor = (arr)=> {
+        let resultArr = []
+        for (let i = 0; i < arr.length; i = i + 4) {
+            let measurements = {}
+            measurements.temperature = arr[i]
+            measurements.precipitation = arr[i + 1]
+            measurements.wind = arr[i + 2]
+            measurements.cloud = arr[i + 3]
+            resultArr.push(measurements)
+        }
+        return resultArr
+    }
     const effect = async ()=>{
         let temp = await getForecast(url("Aarhus"))
-        setForecast(temp)
-        setStatus(forecast!=[] ? true : false)
+        temp.forEach((item,i) => {
+            item.id = i + 1
+        })
+        let resultArray = testFor(temp)
+        setForecast(resultArray)
+        setStatus(forecast.length != 0 ? true : false)
     }
+   // con
 
-    const handleClick = async ()=>{
+    const handleClick = async (city)=>{
         let temp = await getForecast(url(city))
-        setForecast(temp)
-        console.log(forecast)
+        let resultArray = testFor(temp)
+        setForecast(resultArray)
+        console.log(resultArray)
     }
 
+    // console.log(forecast)
     useEffect(()=>{
             effect()
-        setTestObj(forecast[0])
         console.log(forecast)
     },[status])
 
@@ -62,6 +73,19 @@ function App() {
         //             obj4={obj}
         //     />
         // })
+        const DisplayForecast = () => {
+            if (forecast.length === 24){
+                return forecast.map(item => {
+                    return (<ForecastBox
+                        obj1={item.temperature}
+                        obj2={item.precipitation}
+                        obj3={item.wind}
+                        obj4={item.cloud}
+                    />)
+                })
+            } else {
+             return <p>Loading</p>}
+        }
 
         return (
             <div className="App">
@@ -75,25 +99,21 @@ function App() {
                 {/*<div>{ForecastMapping}</div>*/}
 
                 <p>{status ? "All Good":"Loading"}</p>
-                {/*<ForecastBox*/}
-                {/*    obj1={testObj}*/}
-                {/*    obj2={testObj}*/}
-                {/*    obj3={testObj}*/}
-                {/*    obj4={testObj}*/}
-                {/*/>*/}
                 <CityButton city={"Aarhus"} cb={()=>{
-                    setCity("Aarhus")
-                    handleClick()
+                    // setCity()
+                    handleClick("Aarhus")
+                    // console.log(forecast)
                 }}/>
                 <CityButton city={"Horsens"} cb={() => {
-                    setCity("Horsens")
-                    handleClick()
+                    handleClick("Horsens")
+                    // console.log(forecast)
                 }}/>
                 <CityButton city={"Copenhagen"} cb={() => {
-                    setCity("Copenhagen")
-                    handleClick()
+                    // setCity()
+                    handleClick("Copenhagen")
+                    // console.log(forecast)
                 }}/>
-
+                <DisplayForecast/>
             </div>
         );
     }

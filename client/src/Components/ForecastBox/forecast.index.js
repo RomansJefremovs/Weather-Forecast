@@ -2,7 +2,7 @@ import React from "react";
 import "./forecast.style.css"
 import Measurement from "../Measurement/measurement.index"
 
-const ForecastBox = ({obj1,obj2,obj3,obj4})=>{
+const ForecastBox = ({obj1,obj2,obj3,obj4}) => {
 
     return(
         <div className={"forecast-container"}>
@@ -39,8 +39,6 @@ const ForecastBox = ({obj1,obj2,obj3,obj4})=>{
                 precipitation_types={0}
                 directions={0}
             />
-
-
         </div>
     )
 }
