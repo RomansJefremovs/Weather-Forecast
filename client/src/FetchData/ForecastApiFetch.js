@@ -1,6 +1,6 @@
 
-export const url = (city) => {
-    return `http://localhost:3080/forecast/${city}`
+export const url = (type,city) => {
+    return `http://localhost:3080/${type}/${city}`
 }
 
 export const getForecast = async (url) => {

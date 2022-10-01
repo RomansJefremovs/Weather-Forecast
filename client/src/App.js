@@ -1,17 +1,23 @@
 import './App.css';
 import {useEffect,useState} from "react"
+import React from "react";
 import LatestData from "./Components/LatestData/data.index";
 import ForecastBox from "./Components/ForecastBox/forecast.index";
 import CityButton from "./Components/CityButton/button.index";
 import Measurement from "./Components/Measurement/measurement.index"
 import {getForecast,url} from "./FetchData/ForecastApiFetch"
 
+import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
+
+
 function App() {
-
+    //
     const [forecast,setForecast] = useState([])
-    const [status, setStatus] = useState(false)
+    // const [data,setData] = useState([])
+    // const [latest,setLatest] = useState([])
+    // const [status, setStatus] = useState("")
 
-
+    //
     const testFor = (arr)=> {
         let resultArr = []
         for (let i = 0; i < arr.length; i = i + 4) {
@@ -24,55 +30,62 @@ function App() {
         }
         return resultArr
     }
-    const effect = async ()=>{
-        let temp = await getForecast(url("Aarhus"))
+
+    const getForecastFiltered = async ()=>{
+        let temp = await getForecast(url("forecast","Aarhus"))
         temp.forEach((item,i) => {
             item.id = i + 1
         })
         let resultArray = testFor(temp)
         setForecast(resultArray)
-        setStatus(forecast.length != 0 ? true : false)
+        // forecast.length !==0 ? setStatus("Forecast Ready"): setStatus("Forecast Not Ready")
     }
-   // con
 
-    const handleClick = async (city)=>{
-        let temp = await getForecast(url(city))
+    // const getDataXHR = () => {
+    //     let xhr = new XMLHttpRequest()
+    //     xhr.open("GET",url("data","Aarhus"))
+    //     xhr.send()
+    //     let temp
+    //     xhr.onload = async ()=>{
+    //         if (xhr.status == 200){
+    //             temp = JSON.parse(xhr.responseText)
+    //             setData(temp)
+    //             data.length !==0 ? setStatus("Data Ready"):setStatus("Data Not Ready")
+    //         }else{
+    //             console.log("error loading the data")
+    //         }
+    //     }
+    // }
+
+    // const getLatestMeasurements = (arr)=>{
+    //            let temp = arr.length - 4
+    //            let resArr = []
+    //            for (let i = temp; i < arr.length; i++) {
+    //                resArr.push(data[i])
+    //            }
+    //            setLatest(resArr)
+    // }
+    const handleClick = async (type,city)=>{
+        let temp = await getForecast(url(type,city))
         let resultArray = testFor(temp)
         setForecast(resultArray)
-        console.log(resultArray)
     }
 
     // console.log(forecast)
     useEffect(()=>{
-            effect()
-        console.log(forecast)
-    },[status])
-
-        // const testObject = {
-        //     time: "some date",
-        //     temperature: {value: 13, unit: "C"},
-        //     precipitation: {value: 0, unit: "mm", type: "rain"},
-        //     wind: {value: 2, unit: "m/s", direction: "North"},
-        //     cloud: {value: 100, unit: "%"}
+            getForecastFiltered()
+        //     if (status === "Forecast Ready"){
+        //         getDataXHR()
+        //     }else {
+        //         setTimeout(()=>{getDataXHR()},0)
+        //     }
+        // if (status === "Data Ready"){
+        //     getLatestMeasurements(data)
+        // }else {
+        //     setTimeout(()=>{getLatestMeasurements(data)},1)
         // }
+    },[])
 
-        // const testObjectForecast = {
-        //     time: "",
-        //     temperature: {from: status ? forecast[0].from: 11 , to: forecast[0] ? forecast[0].to:11, unit: "C"},
-        //     precipitation: {from: 11, to: 11, unit: "mm", type: "rain"},
-        //     wind: {from: 11, to: 11, unit: "m/s", direction: "North"},
-        //     cloud: {from: 11, to: 11, unit: "%"}
-        // }
-
-        // const ForecastMapping = forecast.map((obj) => {
-        //
-        //     return <ForecastBox
-        //             obj1={obj}
-        //             obj2={obj}
-        //             obj3={obj}
-        //             obj4={obj}
-        //     />
-        // })
         const DisplayForecast = () => {
             if (forecast.length === 24){
                 return forecast.map(item => {
@@ -88,33 +101,51 @@ function App() {
         }
 
         return (
-            <div className="App">
-                {/*<LatestData*/}
-                {/*    time={forecast[0] ? forecast[0].time : testObjectForecast.time}*/}
-                {/*    temperature={testObject.temperature}*/}
-                {/*    precipitation={testObject.precipitation}*/}
-                {/*    wind={testObject.wind}*/}
-                {/*    cloud={testObject.cloud}*/}
-                {/*/>*/}
-                {/*<div>{ForecastMapping}</div>*/}
+            <BrowserRouter>
+                <div className="App">
+                    <div>
+                        <Link to={"/"}>Forecast</Link>
+                        <Link to={"/latest"} >Latest Data</Link>
+                    </div>
 
-                <p>{status ? "All Good":"Loading"}</p>
-                <CityButton city={"Aarhus"} cb={()=>{
-                    // setCity()
-                    handleClick("Aarhus")
-                    // console.log(forecast)
-                }}/>
-                <CityButton city={"Horsens"} cb={() => {
-                    handleClick("Horsens")
-                    // console.log(forecast)
-                }}/>
-                <CityButton city={"Copenhagen"} cb={() => {
-                    // setCity()
-                    handleClick("Copenhagen")
-                    // console.log(forecast)
-                }}/>
-                <DisplayForecast/>
-            </div>
+                    <Routes>
+                        <Route exact path={"/"} element={
+                           <div>
+                               <CityButton city={"Aarhus"} cb={()=>{
+                                   // setCity()
+                                   handleClick("forecast","Aarhus")
+                                   // console.log(forecast)
+                               }}/>
+                               <CityButton city={"Horsens"} cb={() => {
+                                   handleClick("forecast","Horsens")
+                                   // console.log(forecast)
+                               }}/>
+                               <CityButton city={"Copenhagen"} cb={() => {
+                                   // setCity()
+                                   handleClick("forecast","Copenhagen")
+                                   // console.log(forecast)
+                               }}/>
+                               <DisplayForecast />
+                           </div>
+                        } />
+                        <Route  path={"/latest"} element={
+                            // <p>{latest.length != 0 ? latest[0]:"Loading"}</p>
+                            <LatestData />
+                        }>
+
+                            {/*<LatestData*/}
+                            {/*    time={forecast[0] ? forecast[0].time : testObjectForecast.time}*/}
+                            {/*    temperature={testObject.temperature}*/}
+                            {/*    precipitation={testObject.precipitation}*/}
+                            {/*    wind={testObject.wind}*/}
+                            {/*    cloud={testObject.cloud}*/}
+                            {/*/>*/}
+                            {/*<div>{ForecastMapping}</div>*/}
+                        </Route>
+                    </Routes>
+                </div>
+            </BrowserRouter>
+
         );
     }
 export default App;
