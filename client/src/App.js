@@ -40,31 +40,6 @@ function App() {
         setForecast(resultArray)
         // forecast.length !==0 ? setStatus("Forecast Ready"): setStatus("Forecast Not Ready")
     }
-
-    // const getDataXHR = () => {
-    //     let xhr = new XMLHttpRequest()
-    //     xhr.open("GET",url("data","Aarhus"))
-    //     xhr.send()
-    //     let temp
-    //     xhr.onload = async ()=>{
-    //         if (xhr.status == 200){
-    //             temp = JSON.parse(xhr.responseText)
-    //             setData(temp)
-    //             data.length !==0 ? setStatus("Data Ready"):setStatus("Data Not Ready")
-    //         }else{
-    //             console.log("error loading the data")
-    //         }
-    //     }
-    // }
-
-    // const getLatestMeasurements = (arr)=>{
-    //            let temp = arr.length - 4
-    //            let resArr = []
-    //            for (let i = temp; i < arr.length; i++) {
-    //                resArr.push(data[i])
-    //            }
-    //            setLatest(resArr)
-    // }
     const handleClick = async (type,city)=>{
         let temp = await getForecast(url(type,city))
         let resultArray = testFor(temp)
@@ -74,17 +49,7 @@ function App() {
     // console.log(forecast)
     useEffect(()=>{
             getForecastFiltered()
-        //     if (status === "Forecast Ready"){
-        //         getDataXHR()
-        //     }else {
-        //         setTimeout(()=>{getDataXHR()},0)
-        //     }
-        // if (status === "Data Ready"){
-        //     getLatestMeasurements(data)
-        // }else {
-        //     setTimeout(()=>{getLatestMeasurements(data)},1)
-        // }
-    },[])
+        },[])
 
         const DisplayForecast = () => {
             if (forecast.length === 24){
@@ -131,6 +96,7 @@ function App() {
                         <Route  path={"/latest"} element={
                             // <p>{latest.length != 0 ? latest[0]:"Loading"}</p>
                             <LatestData />
+
                         }>
 
                             {/*<LatestData*/}

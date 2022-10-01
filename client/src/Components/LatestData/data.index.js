@@ -8,7 +8,7 @@ import {url} from "../../FetchData/ForecastApiFetch";
 const LatestData = ()=>{
     const [data,setData] = useState([])
     const [latest,setLatest] = useState([])
-    const [status, setStatus] = useState("")
+    // const [status, setStatus] = useState("")
 
     const getDataXHR = () => {
         let xhr = new XMLHttpRequest()
@@ -31,14 +31,7 @@ const LatestData = ()=>{
             }
         }
     }
-    // const getLatestMeasurements = (arr)=>{
-    //     let temp = arr.length - 4
-    //     let resArr = []
-    //     for (let i = temp; i < arr.length; i++) {
-    //         resArr.push(data[i])
-    //     }
-    //     setLatest(resArr)
-    // }
+
 
     useEffect(()=>{
         getDataXHR()
@@ -56,17 +49,23 @@ const LatestData = ()=>{
 
             <div className={"data-container"}>
                 <div className={"inner-container"}>
+                    <p>City</p>
                     <p>Temperature</p>
                     <p>Precipitation of type {latest.type}</p>
                     <p>WindSpeed</p>
                     <p>Cloud Coverage</p>
                 </div>
-                <div className={"inner-container"}>
-                    <div className={"temp inline"}><p>{latest.length !==0 ? latest[0].place :"Loading"}</p><p></p></div>
-                {/*    <div className={"precipitation inline"}><p>{latest[0].value}</p><p>{latest[0].unit}</p></div>*/}
-                {/*    <div className={"wind inline"}><p>{latest[0].value}</p><p style={{ marginRight: '15px'}}>{latest[0].unit}</p><p>{latest[0].direction}</p></div>*/}
-                {/*    <div className={"cloud inline"}><p>{latest[0].value}</p><p>{latest[0].unit}</p></div>*/}
-                </div>
+                {latest.length !==0 ?
+                    <div className={"inner-container"}>
+                        <div className={"city inline"}><p>{latest[0].place}</p><p></p></div>
+                        <div className={"temp inline"}><p>{ latest[0].value}</p><p>{latest[0].unit}</p></div>
+                        <div className={"precipitation inline"}><p>{latest[1].value}</p><p>{latest[1].unit}</p></div>
+                        <div className={"wind inline"}><p>{latest[2].value}</p><p style={{ marginRight: '15px'}}>{latest[2].unit}</p><p>{latest[0].direction}</p></div>
+                        <div className={"cloud inline"}><p>{latest[3].value}</p><p>{latest[3].unit}</p></div>
+                    </div>
+                    : <p>Loading</p>
+                }
+
             </div>
         </div>
     )
