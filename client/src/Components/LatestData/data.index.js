@@ -36,12 +36,51 @@ const LatestData = ()=>{
         getDataXHR(city)
     }
 
+    const getMinTempLastDay = ()=>{
+        let min = 100
+        for (let i = data.length-96; i < data.length; i++) {
+            if (data[i].type === "temperature" && data[i].value < min){
+                min = data[i].value
+            }
+        }
+        return min
+    }
+    const getMaxTempLastDay = ()=>{
+        let max = -100
+        for (let i = data.length-96; i < data.length; i++) {
+            if (data[i].type === "temperature" && data[i].value > max){
+                max = data[i].value
+            }
+        }
+        return max
+    }
+
+    const getTotalPrecipitationLastDay = ()=>{
+        let total = 0
+        for (let i = data.length - 96; i < data.length; i++) {
+            if (data[i].type === "precipitation"){
+                total += data[i].value
+            }
+        }
+        return total
+    }
+    const getAverageWindLastDay = ()=>{
+        let total = 0
+        let count = 0
+        for (let i = data.length - 96; i < data.length; i++) {
+            if (data[i].type === "wind speed"){
+                total += data[i].value
+                count++
+            }
+        }
+        let avg = total/count
+        return avg
+    }
+
     useEffect(()=>{
         getDataXHR("Aarhus")
     },[])
 
-    console.log(data)
-    console.log(latest)
     return(
         <div>
             {/*<CityButton city={} cb={}/>*/}
@@ -61,12 +100,12 @@ const LatestData = ()=>{
             }}/>
             <div className={"latest-data"}>
                 <h1 className={"header-data"}>Latest data</h1>
-                <p className={"time"}>Updated at {latest.time}</p>
+                <p className={"time"}>Updated at {latest.length !==0 ? latest[0].time : "Loading"}</p>
                 <div className={"data-container"}>
                     <div className={"inner-container"}>
                         <p>City</p>
                         <p>Temperature</p>
-                        <p>Precipitation of type {latest.type}</p>
+                        <p>Precipitation of type {latest.length !==0 ? latest[1].precipitation_type:"Loading"}</p>
                         <p>WindSpeed</p>
                         <p>Cloud Coverage</p>
                     </div>
@@ -82,6 +121,24 @@ const LatestData = ()=>{
                     }
                 </div>
             </div>
+            <div className={"latest-data"}>
+                <h1 className={"header-data"}>Measurements</h1>
+                <div className={"data-container"}>
+                    <div className={"inner-container"}>
+                        <p>Temperature</p>
+                        <p>Total Precipitation</p>
+                        <p>Average WindSpeed</p>
+                    </div>
+                    {latest.length !==0 ?
+                        <div className={"inner-container"}>
+                            <div className={"temp inline"}><p>Min { getMinTempLastDay()} and Max {getMaxTempLastDay()}</p><p  style={{ marginRight: '15px'}}>{latest[0].unit}</p></div>
+                            <div className={"precipitation inline"}><p>{getTotalPrecipitationLastDay()}</p><p  style={{ marginRight: '15px'}}>{latest[1].unit}</p></div>
+                            <div className={"wind inline"}><p>{getAverageWindLastDay()}</p><p style={{ marginRight: '15px'}}>{latest[2].unit}</p></div>
+                        </div>
+                        : <p>Loading</p>
+                    }
+                </div>
+        </div>
         </div>
 
     )

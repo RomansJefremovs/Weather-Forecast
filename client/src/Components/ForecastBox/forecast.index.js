@@ -6,7 +6,7 @@ const ForecastBox = ({obj1,obj2,obj3,obj4}) => {
 
     return(
         <div className={"forecast-container"}>
-            <p>{obj1.time}</p>
+            <p>{obj1.time +  obj1.place}</p>
             <Measurement
                 type={obj1.type}
                 from={obj1.from}
