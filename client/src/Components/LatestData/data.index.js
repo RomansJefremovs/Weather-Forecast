@@ -82,22 +82,18 @@ const LatestData = ()=>{
     },[])
 
     return(
-        <div>
-            {/*<CityButton city={} cb={}/>*/}
-            <CityButton city={"Aarhus"} cb={()=>{
-                // setCity()
-                handleClickData("Aarhus")
-                // console.log(forecast)
-            }}/>
-            <CityButton city={"Horsens"} cb={()=>{
-                // setCity()
-                handleClickData("Horsens")
-                // console.log(forecast)
-            }}/><CityButton city={"Copenhagen"} cb={()=>{
-                // setCity()
+        <div className={"latest-data-container"}>
+            <div className={"switch-latest"}>
+                <CityButton city={"Aarhus"} cb={()=>{
+                    handleClickData("Aarhus")
+                }}/>
+                <CityButton city={"Horsens"} cb={()=>{
+                    handleClickData("Horsens")
+                }}/>
+                <CityButton city={"Copenhagen"} cb={()=>{
                 handleClickData("Copenhagen")
-                // console.log(forecast)
             }}/>
+            </div>
             <div className={"latest-data"}>
                 <h1 className={"header-data"}>Latest data</h1>
                 <p className={"time"}>Updated at {latest.length !==0 ? latest[0].time : "Loading"}</p>

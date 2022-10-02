@@ -8,8 +8,8 @@ const Measurement = ({type,from,to,unit,precipitation_types,directions})=>{
     return(
         <div className={"measurement"}>
             <div>
-                <p>{`The ${type}`}</p>
-                <p>{precipitation_types !=0 ? precipitation_types: directions != 0 ? directions : ""}</p>
+                <p>{`The ${type} ${precipitation_types !=0 ? precipitation_types: directions != 0 ? directions : ""}`}</p>
+                <p>{}</p>
 
             </div>
             <div className={"measurement-inline"}>

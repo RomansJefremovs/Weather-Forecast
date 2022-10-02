@@ -4,20 +4,15 @@ import React from "react";
 import LatestData from "./Components/LatestData/data.index";
 import ForecastBox from "./Components/ForecastBox/forecast.index";
 import CityButton from "./Components/CityButton/button.index";
-import Measurement from "./Components/Measurement/measurement.index"
 import {getForecast,url} from "./FetchData/ForecastApiFetch"
-
+import SunLogo from "./sunlogo.png"
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 
 
 function App() {
-    //
-    const [forecast,setForecast] = useState([])
-    // const [data,setData] = useState([])
-    // const [latest,setLatest] = useState([])
-    // const [status, setStatus] = useState("")
 
-    //
+    const [forecast,setForecast] = useState([])
+    const [isChecked, setChecked] = useState(false)
     const testFor = (arr)=> {
         let resultArr = []
         for (let i = 0; i < arr.length; i = i + 4) {
@@ -38,15 +33,14 @@ function App() {
         })
         let resultArray = testFor(temp)
         setForecast(resultArray)
-        // forecast.length !==0 ? setStatus("Forecast Ready"): setStatus("Forecast Not Ready")
     }
+
     const handleClick = async (type,city)=>{
         let temp = await getForecast(url(type,city))
         let resultArray = testFor(temp)
         setForecast(resultArray)
     }
 
-    // console.log(forecast)
     useEffect(()=>{
             getForecastFiltered()
         },[])
@@ -68,45 +62,35 @@ function App() {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <div>
-                        <Link to={"/"}>Forecast</Link>
-                        <Link to={"/latest"} >Latest Data</Link>
+                    <div className={"navbar"}>
+                        <img src={SunLogo}/>
+                        <div className={"links"}>
+                            <Link to={"/"} style={{ textDecoration: 'none'}}>Forecast</Link>
+                            <Link to={"/latest"} style={{ textDecoration: 'none'}}>Latest Data</Link>
+                        </div>
                     </div>
-
                     <Routes>
                         <Route exact path={"/"} element={
-                           <div>
-                               <CityButton city={"Aarhus"} cb={()=>{
-                                   // setCity()
-                                   handleClick("forecast","Aarhus")
-                                   // console.log(forecast)
-                               }}/>
-                               <CityButton city={"Horsens"} cb={() => {
-                                   handleClick("forecast","Horsens")
-                                   // console.log(forecast)
-                               }}/>
-                               <CityButton city={"Copenhagen"} cb={() => {
-                                   // setCity()
-                                   handleClick("forecast","Copenhagen")
-                                   // console.log(forecast)
-                               }}/>
-                               <DisplayForecast />
+                           <div className={"forecast-app"}>
+                               <div className={"switch"}>
+                                   <CityButton city={"Aarhus"}
+                                               cb={()=>{
+                                       handleClick("forecast","Aarhus")
+                                   }}
+                                   />
+                                   <CityButton city={"Horsens"} cb={() => {
+                                       handleClick("forecast","Horsens")
+                                   }}/>
+                                   <CityButton city={"Copenhagen"} cb={() => {
+                                       handleClick("forecast","Copenhagen")
+                                   }}/>
+                               </div>
+                               <DisplayForecast className={"display-forecast"}/>
                            </div>
                         } />
                         <Route  path={"/latest"} element={
-                            // <p>{latest.length != 0 ? latest[0]:"Loading"}</p>
                             <LatestData />
-
                         }>
-
-                            {/*<LatestData*/}
-                            {/*    time={forecast[0] ? forecast[0].time : testObjectForecast.time}*/}
-                            {/*    temperature={testObject.temperature}*/}
-                            {/*    precipitation={testObject.precipitation}*/}
-                            {/*    wind={testObject.wind}*/}
-                            {/*    cloud={testObject.cloud}*/}
-                            {/*/>*/}
-                            {/*<div>{ForecastMapping}</div>*/}
                         </Route>
                     </Routes>
                 </div>

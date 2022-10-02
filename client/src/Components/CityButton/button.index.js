@@ -3,7 +3,7 @@ import "./button.style.css"
 
 const CityButton = ({city,cb})=>{
     return(
-        <div className={"button-container"}>
+        <div className={`button-container`}>
             <a onClick={cb}>
                 <p>{city}</p>
             </a>

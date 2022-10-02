@@ -6,4 +6,11 @@
 }
 .button-container:hover{
     cursor: pointer;
+    background-color: grey;
+}
+.checked{
+    background: grey;
+}
+.unchecked{
+    background-color: #f0f0f0;
 }
