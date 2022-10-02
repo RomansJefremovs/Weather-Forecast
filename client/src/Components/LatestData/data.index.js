@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from "react"
 import "./data.style.css"
-import {getForecast, url} from "../../FetchData/ForecastApiFetch";
+import {url} from "../../FetchData/ForecastApiFetch";
 import CityButton from "../CityButton/button.index";
-// import {useState} from "@types/react";
 
 
-// {time,temperature,precipitation,wind,cloud}
 const LatestData = ()=>{
     const [data,setData] = useState([])
     const [latest,setLatest] = useState([])
-    // const [status, setStatus] = useState("")
 
     const getDataXHR = (city) => {
         let xhr = new XMLHttpRequest()
@@ -17,7 +14,7 @@ const LatestData = ()=>{
         xhr.send()
         let temp
         xhr.onload = async ()=>{
-            if (xhr.status == 200){
+            if (xhr.status === 200){
                 temp = JSON.parse(xhr.responseText)
                 setData(temp)
                 let num = temp.length - 4
@@ -26,7 +23,6 @@ const LatestData = ()=>{
                     resArr.push(temp[i])
                 }
                 setLatest(resArr)
-                // data.length !==0 ? setStatus("Data Ready"):setStatus("Data Not Ready")
             }else{
                 console.log("error loading the data")
             }
@@ -73,8 +69,7 @@ const LatestData = ()=>{
                 count++
             }
         }
-        let avg = total/count
-        return avg
+        return total / count
     }
 
     useEffect(()=>{

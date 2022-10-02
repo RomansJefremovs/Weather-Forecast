@@ -7,7 +7,7 @@ const ForecastBox = ({obj1,obj2,obj3,obj4}) => {
 
     return(
         <div className={"img-container"}>
-            <img src={Sun}/>
+            <img alt={"sun"} src={Sun}/>
             <div className={"forecast-container"}>
                 <p>{obj1.time +  obj1.place}</p>
                 <Measurement

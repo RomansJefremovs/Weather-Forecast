@@ -12,7 +12,6 @@ import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 function App() {
 
     const [forecast,setForecast] = useState([])
-    const [isChecked, setChecked] = useState(false)
     const testFor = (arr)=> {
         let resultArr = []
         for (let i = 0; i < arr.length; i = i + 4) {
@@ -63,7 +62,7 @@ function App() {
             <BrowserRouter>
                 <div className="App">
                     <div className={"navbar"}>
-                        <img src={SunLogo}/>
+                        <img alt={"logo"} src={SunLogo}/>
                         <div className={"links"}>
                             <Link to={"/"} style={{ textDecoration: 'none'}}>Forecast</Link>
                             <Link to={"/latest"} style={{ textDecoration: 'none'}}>Latest Data</Link>
