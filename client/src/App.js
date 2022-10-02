@@ -12,6 +12,7 @@ import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 function App() {
 
     const [forecast,setForecast] = useState([])
+
     const testFor = (arr)=> {
         let resultArr = []
         for (let i = 0; i < arr.length; i = i + 4) {
