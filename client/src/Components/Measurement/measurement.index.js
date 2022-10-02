@@ -2,7 +2,7 @@ import React from "react"
 import "./measurement.style.css"
 
 
-const Measurement = ({type,from,to,unit,precipitation_types,directions})=>{
+const Measurement = ({type,from,to,unit,precipitation_types, directions})=>{
     precipitation_types = precipitation_types || 0
     directions = directions || 0
     return(
