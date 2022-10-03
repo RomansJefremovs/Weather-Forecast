@@ -1,12 +1,14 @@
-latest-data-container{
+.latest-data-container{
     padding-left: 5rem;
     padding-right: 5rem;
 }
 .latest-data{
     background-color: #f0f0f0;
-    margin: 2rem;
-    padding: 1rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+    width: 50rem;
 }
+
 .switch-latest{
     width: 50%;
     display: flex;
@@ -32,6 +34,7 @@ latest-data-container{
 .inner-container{
     display: flex;
     flex-direction: column;
+    line-height: 0.5rem;
 }
 
 .header-data{

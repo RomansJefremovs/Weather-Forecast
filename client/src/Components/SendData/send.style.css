@@ -1,0 +1,13 @@
+.subscription{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*align-items: center;*/
+    width: 40rem;
+    align-self: center;
+    justify-self: center;
+    /*height: 65vh;*/
+}
+.subscription-container{
+    height: 75vh;
+}

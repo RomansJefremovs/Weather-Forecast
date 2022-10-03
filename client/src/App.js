@@ -4,6 +4,7 @@ import React from "react";
 import LatestData from "./Components/LatestData/data.index";
 import ForecastBox from "./Components/ForecastBox/forecast.index";
 import CityButton from "./Components/CityButton/button.index";
+import SendData from "./Components/SendData/send.index"
 import {getForecast,url} from "./FetchData/ForecastApiFetch"
 import SunLogo from "./sunlogo.png"
 import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
@@ -67,6 +68,7 @@ function App() {
                         <div className={"links"}>
                             <Link to={"/"} style={{ textDecoration: 'none'}}>Forecast</Link>
                             <Link to={"/latest"} style={{ textDecoration: 'none'}}>Latest Data</Link>
+                            <Link to={"/send"} style={{ textDecoration: 'none'}}>Send Data</Link>
                         </div>
                     </div>
                     <Routes>
@@ -90,6 +92,10 @@ function App() {
                         } />
                         <Route  path={"/latest"} element={
                             <LatestData />
+                        }>
+                        </Route>
+                        <Route  path={"/send"} element={
+                            <SendData />
                         }>
                         </Route>
                     </Routes>
